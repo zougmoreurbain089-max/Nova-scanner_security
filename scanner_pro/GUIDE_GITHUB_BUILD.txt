@@ -1,0 +1,115 @@
+============================================================
+   GUIDE GITHUB ACTIONS - Compiler le .EXE depuis Kali Linux
+   Scanner de Securite Pro - by Zougmore Urbain
+============================================================
+
+PRINCIPE : GitHub compile le .exe Windows sur ses serveurs.
+Vous uploadez votre code, vous telechargez le .exe.
+C'est GRATUIT et ca marche depuis n'importe quel PC.
+
+============================================================
+ETAPE 1 - Creer un compte GitHub (si pas encore fait)
+============================================================
+
+1. Allez sur : https://github.com
+2. Cliquez "Sign up"
+3. Entrez votre email, un mot de passe, un nom d'utilisateur
+4. Verifiez votre email
+5. Connectez-vous
+
+============================================================
+ETAPE 2 - Creer un nouveau depot (repository)
+============================================================
+
+1. Une fois connecte, cliquez sur le "+" en haut a droite
+2. Choisissez "New repository"
+3. Nom du depot : scanner-securite-pro
+4. Choisissez "Private" (votre code sera cache)
+5. Cliquez "Create repository"
+
+============================================================
+ETAPE 3 - Installer Git sur Kali et uploader votre code
+============================================================
+
+Dans votre terminal Kali, tapez ces commandes une par une :
+
+   sudo apt-get install git -y
+
+   git config --global user.name "Zougmore Urbain"
+   git config --global user.email "votre@email.com"
+
+   cd ~/Downloads/ScannerSecuritePro
+   git init
+   git add .
+   git commit -m "Scanner de Securite Pro v1.0"
+
+   git remote add origin https://github.com/VOTRE_NOM/scanner-securite-pro.git
+   git branch -M main
+   git push -u origin main
+
+(Remplacez VOTRE_NOM par votre nom d'utilisateur GitHub)
+GitHub vous demandera votre mot de passe (ou un token).
+
+============================================================
+ETAPE 4 - Lancer le build automatique
+============================================================
+
+1. Allez sur votre depot GitHub dans le navigateur
+2. Cliquez sur l'onglet "Actions"
+3. Vous verrez "Build Windows EXE"
+4. Cliquez "Run workflow" puis "Run workflow" (bouton vert)
+5. Attendez 5-10 minutes (vous verrez une barre de progression)
+
+============================================================
+ETAPE 5 - Telecharger votre .exe Windows
+============================================================
+
+1. Une fois le build termine (cercle vert ✅)
+2. Cliquez sur le build termine
+3. En bas de la page, section "Artifacts"
+4. Cliquez "ScannerSecuritePro-Windows"
+5. Un ZIP se telecharge contenant :
+   - ScannerSecuritePro.exe  (le programme Windows)
+   - codes_licence_1000.txt  (vos 1000 codes clients !)
+   - LIRE_MOI.txt
+
+============================================================
+CONTENU DE codes_licence_1000.txt
+============================================================
+
+Ce fichier contient vos 1000 codes a distribuer :
+
+   Client #0001 | Code : 0000000001
+   Client #0002 | Code : 0000000010
+   Client #0003 | Code : 0000000011
+   ...
+   Client #1000 | Code : 1111101000
+
+Quand un client paie 3000 FCFA via Orange Money au
++226 57 37 30 16, vous lui envoyez le prochain code
+disponible par SMS ou WhatsApp.
+
+============================================================
+DISTRIBUTION SUR CLE USB
+============================================================
+
+1. Copiez ScannerSecuritePro.exe sur votre cle USB
+2. Chez le client :
+   a. Installez Nmap (https://nmap.org/download.html)
+   b. Copiez ScannerSecuritePro.exe sur son Bureau
+   c. Lancez en tant qu'Administrateur
+   d. Entrez son code de licence
+3. Apres 30 jours, il vous rappelle pour renouveler !
+
+============================================================
+PROPRIETES DU FICHIER .EXE (clic droit -> Proprietes)
+============================================================
+
+Nom du produit    : Scanner de Securite Pro
+Societe           : Zougmore Urbain
+Version           : 1.0.0
+Copyright         : Copyright (c) 2026 Zougmore Urbain
+
+Ces informations apparaissent automatiquement dans Windows !
+
+============================================================

@@ -1,0 +1,68 @@
+name: Build Windows EXE
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        pip install pyinstaller python-nmap requests reportlab colorama
+
+    - name: Generate 1000 licence codes
+      run: |
+        python licence.py
+
+    - name: Build EXE with PyInstaller
+      run: |
+        pyinstaller --onefile --windowed `
+          --name "ScannerSecuritePro" `
+          --add-data "modules;modules" `
+          --add-data "rapports;rapports" `
+          --hidden-import tkinter `
+          --hidden-import tkinter.ttk `
+          --hidden-import tkinter.messagebox `
+          --hidden-import tkinter.scrolledtext `
+          --hidden-import nmap `
+          --hidden-import requests `
+          --hidden-import reportlab `
+          --hidden-import reportlab.pdfgen.canvas `
+          --hidden-import colorama `
+          --uac-admin `
+          --version-file version_info.txt `
+          main.py
+
+    - name: Create distribution package
+      run: |
+        mkdir dist_package
+        copy dist\ScannerSecuritePro.exe dist_package\
+        copy codes_licence_1000.txt dist_package\
+        mkdir dist_package\rapports
+        echo "SCANNER DE SECURITE PRO - by Zougmore Urbain" > dist_package\LIRE_MOI.txt
+        echo "Prix : 3000 FCFA/mois via Orange Money" >> dist_package\LIRE_MOI.txt
+        echo "Contact : +226 57 37 30 16" >> dist_package\LIRE_MOI.txt
+        echo "" >> dist_package\LIRE_MOI.txt
+        echo "INSTALLATION :" >> dist_package\LIRE_MOI.txt
+        echo "1. Installez Nmap : https://nmap.org/download.html" >> dist_package\LIRE_MOI.txt
+        echo "2. Double-cliquez sur ScannerSecuritePro.exe" >> dist_package\LIRE_MOI.txt
+        echo "3. Lancez en tant qu'Administrateur" >> dist_package\LIRE_MOI.txt
+
+    - name: Upload EXE artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ScannerSecuritePro-Windows
+        path: dist_package/
+        retention-days: 30
